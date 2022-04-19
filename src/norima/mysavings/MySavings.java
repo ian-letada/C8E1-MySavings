@@ -7,6 +7,10 @@ public class MySavings {
     static PiggyBank bank = new PiggyBank();
 
     public static void main(String[] args) {
+        menu();
+    }
+
+    public static void menu() {
         boolean exitFlag = false;
 
         while (!exitFlag) {
@@ -56,6 +60,7 @@ public class MySavings {
             }
         }
         System.exit(0);
+
     }
 
     public static void removeCoin() {

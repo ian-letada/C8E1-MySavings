@@ -2,8 +2,6 @@ package norima.mysavings;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class PiggyBank {
     ArrayList<String> coins = new ArrayList<>();
@@ -39,7 +37,7 @@ public class PiggyBank {
         if (coins.remove(PENNY)) {
             System.out.println("Removed a penny.");
         } else {
-            System.out.println("No penny present. None removed.");
+            System.out.println("No pennies present. None removed.");
         }
     }
 
@@ -52,7 +50,7 @@ public class PiggyBank {
         if (coins.remove(DIME)) {
             System.out.println("Removed a dime.");
         } else {
-            System.out.println("No dime present. None removed.");
+            System.out.println("No dimes present. None removed.");
         }
     }
 
@@ -65,30 +63,59 @@ public class PiggyBank {
         if (coins.remove(QUARTER)) {
             System.out.println("Removed a quarter.");
         } else {
-            System.out.println("No quarter present. None removed");
+            System.out.println("No quarters present. None removed");
         }
     }
 
     public BigDecimal getSavings() {
         BigDecimal savings = new BigDecimal(0);
-        Map<String, Long> map = coins.stream().collect(Collectors.groupingBy(s -> s, Collectors.counting()));
 
-        for (Map.Entry<String, Long> entry : map.entrySet()) {
-            if (entry.getKey().equals(NICKEL)) {
-                savings = savings.add(NICKEL_VALUE.multiply(BigDecimal.valueOf(entry.getValue())));
-            }
-            if (entry.getKey().equals(PENNY)) {
-                savings = savings.add(PENNY_VALUE.multiply(BigDecimal.valueOf(entry.getValue())));
-            }
-            if (entry.getKey().equals(DIME)) {
-                savings = savings.add(DIME_VALUE.multiply(BigDecimal.valueOf(entry.getValue())));
-            }
-            if (entry.getKey().equals(QUARTER)) {
-                savings = savings.add(QUARTER_VALUE.multiply(BigDecimal.valueOf(entry.getValue())));
+        for (String c : coins) {
+            switch (c) {
+                case NICKEL: {
+                    savings = savings.add(NICKEL_VALUE);
+                    break;
+                }
+                case PENNY: {
+                    savings = savings.add(PENNY_VALUE);
+                    break;
+                }
+                case DIME: {
+                    savings = savings.add(DIME_VALUE);
+                    break;
+                }
+                case QUARTER: {
+                    savings = savings.add(QUARTER_VALUE);
+                    break;
+                }
+                default: {
+                    System.out.println("The hell is this coin?: " + c);
+                    break;
+                }
             }
         }
 
         return savings;
+        // Map<String, Long> map = coins.stream().collect(Collectors.groupingBy(s -> s,
+        // Collectors.counting()));
+
+        // for (Map.Entry<String, Long> entry : map.entrySet()) {
+        // if (entry.getKey().equals(NICKEL)) {
+        // savings =
+        // savings.add(NICKEL_VALUE.multiply(BigDecimal.valueOf(entry.getValue())));
+        // }
+        // if (entry.getKey().equals(PENNY)) {
+        // savings =
+        // savings.add(PENNY_VALUE.multiply(BigDecimal.valueOf(entry.getValue())));
+        // }
+        // if (entry.getKey().equals(DIME)) {
+        // savings =
+        // savings.add(DIME_VALUE.multiply(BigDecimal.valueOf(entry.getValue())));
+        // }
+        // if (entry.getKey().equals(QUARTER)) {
+        // savings =
+        // savings.add(QUARTER_VALUE.multiply(BigDecimal.valueOf(entry.getValue())));
+        // }
     }
 
 }
